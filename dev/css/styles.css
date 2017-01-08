@@ -580,12 +580,18 @@ body {
   clear:both;
 }
 
-.dropzone {
-    min-height: 150px;
+.img-container {
+    min-height: 50%;
     border: 1px solid #ccc;
     border-radius: 4px;
     background: white;
-    padding: 54px 54px;
+    padding: 10px 10px;
+}
+
+.work-container {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 /* Responsive CSS */

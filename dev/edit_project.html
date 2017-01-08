@@ -108,33 +108,37 @@
 					        </div>
 			  				<div class="panel-body">
 			  					<form action="/edit">
-									<fieldset>
-										<div class="form-group">
-											<label>Name</label>
-											<input class="form-control" placeholder="The name of the project" type="text">
-										</div>
-										<div class="form-group">
-											<label>Description</label>
-											<input class="form-control" placeholder="The description of the project" type="text">
-										</div>
-                    <div class="form-group">
-											<label>Year</label>
-											<input class="form-control" type="text">
-										</div>
-                    <div class="form-group">
-											<label>Gallery Template</label>
-											<input class="form-control" type="text">
-										</div>
-                    <div class="form-group">
-											<label>Thumbnail</label>
-											<div class="dropzone" id="dropzoneThumbnail">
-                   	 </div>
-										</div>
-                 	 <div class="form-group">
-											<label>Work</label>
-											<div class="dropzone" id="dropzoneWork">
-                   	 </div>
-										</div>
+									<fieldset id="project_fieldset">
+										<div class="row">
+											<div class="form-group col-md-12">
+												<label>Name</label>
+												<input class="form-control" placeholder="The name of the project" type="text">
+											</div>
+											<div class="form-group col-md-12">
+												<label>Description</label>
+												<input class="form-control" placeholder="The description of the project" type="text">
+											</div>
+											<div class="form-group col-md-2">
+												<label>Year</label>
+												<input class="form-control" type="text">
+											</div>
+											<div class="form-group col-md-12">
+												<label>Gallery Template</label>
+												<input class="form-control" type="text">
+											</div>
+											<div class="form-group col-md-12">
+												<label>Thumbnail</label>
+												<input class="form-control add-image" type="file"><br>
+												<div class="img-container col-md-3">
+													<img class="img-thumbnail" src="" alt="Image preview...">
+												</div>
+											</div>
+										<div class="form-group col-md-12">
+												<label>Work</label><br>
+												<button class="btn btn-default btn-md" id="add_work_btn"><i class="glyphicon glyphicon-plus"></i></button>
+												<span>Click to add a new work item</span>
+											</div>
+									</div>
 									</fieldset>
 									<div>
 										<div class="btn btn-primary">
@@ -172,7 +176,6 @@
     <script src="vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
 
     <script type="text/javascript" src="vendors/tinymce/js/tinymce/tinymce.min.js"></script>
-		<script src="js/dropzone.js"></script>
 
     <script src="js/custom.js"></script>
   </body>

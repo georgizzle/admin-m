@@ -1,60 +1,83 @@
-Dropzone.autoDiscover = false;
+
 $(document).ready(function(){
-  $("div#dropzoneThumbnail").dropzone({ url: "http://localhost:8080" });
-  $("div#dropzoneWork").dropzone({ url: "http://localhost:8080" });
-  Dropzone.options.dropzoneThumbnail= {
-      autoProcessQueue: false,
-      uploadMultiple: true,
-      parallelUploads: 5,
-      maxFiles: 5,
-      maxFilesize: 1, 
-      acceptedFiles: 'image/*',
-      addRemoveLinks: true,
-      init: function() {
-          dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+  var work_counter = 0;
+  $('#add_work_btn').click(function(e) {
+      e.preventDefault();
+      work_counter ++;
+      var fieldset = $('#project_fieldset');
+      fieldset.append('\
+        <div class="form-group col-md-12 work-container" id="work' + work_counter +'_container"> \
+            <label>Work ' + work_counter +'</label> \
+            <input class="form-control add-image" name="work' + work_counter + '" type="file"><br> \
+			<div class="img-container col-md-3"> \
+			<img class="img-thumbnail" src="" alt="Image preview..."> \
+			</div> \
+            <div class= "col-md-9"> \
+            <div class="row"> \
+                <div class= "col-md-8"> \
+                <label>Title</label> \
+                <input class ="form-control" name="work' + work_counter + '_title" type="text"> \
+                </div> \
+            </div> \
+            <div class="row"> \
+                <div class= "col-md-8"> \
+                <label>Description</label> \
+                <input class ="form-control" name="work' + work_counter + '_desc" type="text"> \
+                </div> \
+            </div> \
+            <div class="row"> \
+                <div class= "col-md-8"> \
+                <label>Type</label> \
+                <input class ="form-control" name="work' + work_counter + '_type" type="text"> \
+                </div> \
+            </div> \
+            <div class="row"> \
+                <div class= "col-md-2"> \
+                <label>Order</label> \
+                <select class ="form-control order-select" name="work' + work_counter + '_order"> \
+                </select> \
+                </div> \
+            </div> \
+			</div> \
+        <div> \
+        <div class="form-group col-md-4" id="work' + work_counter +'_delete"> \
+        <button class="btn btn-danger btn-md">Remove this work from project</button> \
+        <div> \
+      ');
 
-          // for Dropzone to process the queue (instead of default form behavior):
-          document.getElementById("submit-all").addEventListener("click", function(e) {
-              // Make sure that the form isn't actually being sent.
-              e.preventDefault();
-              e.stopPropagation();
-              dzClosure.processQueue();
-          });
+      $('.order-select').each(function(){
+          if ($(this).children('option').length == 0) {
+            for (var index = 1; index <= work_counter; index++) {
+                $(this).append($('<option>', {
+                        value: index,
+                        text: index
+                    }))
+            }
+          } else {
+                $(this).append($('<option>', {
+                        value: work_counter,
+                        text: work_counter
+                    }))
+          }
+      })
 
-          //send all the form data along with the files:
-          this.on("sendingmultiple", function(data, xhr, formData) {
-              formData.append("firstname", jQuery("#firstname").val());
-              formData.append("lastname", jQuery("#lastname").val());
-          });
-      }
-  }
 
-  Dropzone.options.dropzoneWork= {
-      autoProcessQueue: false,
-      uploadMultiple: true,
-      parallelUploads: 5,
-      maxFiles: 5,
-      maxFilesize: 1, 
-      acceptedFiles: 'image/*',
-      addRemoveLinks: true,
-      init: function() {
-          dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
 
-          // for Dropzone to process the queue (instead of default form behavior):
-          document.getElementById("submit-all").addEventListener("click", function(e) {
-              // Make sure that the form isn't actually being sent.
-              e.preventDefault();
-              e.stopPropagation();
-              dzClosure.processQueue();
-          });
+  })  
 
-          //send all the form data along with the files:
-          this.on("sendingmultiple", function(data, xhr, formData) {
-              formData.append("firstname", jQuery("#firstname").val());
-              formData.append("lastname", jQuery("#lastname").val());
-          });
-      }
-  }
+  $('#project_fieldset').on('change', '.add-image', function() {
+      console.log("yo");
+    var preview = $(this).siblings('div:first').children('img:first');
+    var file    = $(this).prop('files')[0];
+    var reader  = new FileReader();
+    reader.onloadend = function () {
+        preview.attr('src',reader.result);
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+  });
 
   $(".submenu > a").click(function(e) {
     e.preventDefault();
